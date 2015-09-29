@@ -1288,10 +1288,6 @@ class SetupTool(Folder):
                     if not reapply_old_profiles:
                         continue
                     generic_logger.info('Reapplying profile %s', profile_id)
-            # Maybe purge all profile upgrade versions.
-            if profile_type == BASE and (purge_old is None or purge_old):
-                # purge_old should be None or explicitly true
-                self.purgeProfileVersions()
             # The next lines are done at least for the main profile.
             # Possibly also for dependency profiles, depending on the
             # condition above.  It applies the profile.
@@ -1302,6 +1298,10 @@ class SetupTool(Folder):
             messages = {}
             event.notify(
                 BeforeProfileImportEvent(self, profile_id, steps, True))
+            # Maybe purge all profile upgrade versions.
+            if profile_type == BASE and (purge_old is None or purge_old):
+                # purge_old should be None or explicitly true
+                self.purgeProfileVersions()
             for step in steps:
                 if blacklisted_steps and step in blacklisted_steps:
                     message = 'step skipped'

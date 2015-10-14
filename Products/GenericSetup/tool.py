@@ -1262,7 +1262,6 @@ class SetupTool(Folder):
         # got passed the profile_id.
         last_num = len(chain)
         for num, profile_id in enumerate(chain, 1):
-            # Purge profile versions when this is a base profile.
             try:
                 profile_type = self.getProfileInfo(profile_id).get('type')
             except KeyError:
